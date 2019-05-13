@@ -88,12 +88,15 @@ variableModifier
     ;
 
 classDeclaration
-    :   'class' Identifier typeParameters?
+    :   'class' className typeParameters?
         ('extends' typeSpec)?
         ('implements' typeList)?
         classBody
     ;
 
+className
+    :   Identifier
+    ;
 typeParameters
     :   '<' typeParameter (',' typeParameter)* '>'
     ;
@@ -566,7 +569,7 @@ parameters
 
 param
     : Identifier
-    | Identifier ','
+    | ',' Identifier
     ;
 
 primary

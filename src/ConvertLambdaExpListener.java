@@ -61,10 +61,18 @@ public class ConvertLambdaExpListener extends JavaBaseListener {
 
     @Override
     public void enterParam(JavaParser.ParamContext ctx) {
-        parameters.append(" Object " + ctx.getText());
+
+        if(ctx.stop.getText().equals(ctx.start.getText()))
+            parameters.append(" Object " + ctx.stop.getText());
+        else
+            parameters.append(ctx.start.getText() + " Object " + ctx.stop.getText());
+
         rewriter.delete(ctx.start);
         rewriter.delete(ctx.stop);
     }
 
-
+    @Override
+    public void enterClassName(JavaParser.ClassNameContext ctx) {
+        rewriter.replace(ctx.start,"Converted" + ctx.start.getText());
+    }
 }

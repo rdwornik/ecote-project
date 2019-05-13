@@ -7,6 +7,7 @@ import java.io.IOException;
 
 
 public class ConvertLambdaExpr {
+
     public static void main(String[] args) {
 
 
@@ -27,8 +28,8 @@ public class ConvertLambdaExpr {
 
             JavaLexer lexer = new JavaLexer(cs);
 
-            lexer.removeErrorListeners();
-            lexer.addErrorListener(ThrowingErrorListener.INSTANCE);
+            //lexer.removeErrorListeners();
+            //lexer.addErrorListener(ThrowingErrorListener.INSTANCE);
 
 
             //create a buffer of tokens from pulled from the lexer
