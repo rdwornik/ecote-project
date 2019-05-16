@@ -957,6 +957,16 @@ public interface JavaListener extends ParseTreeListener {
 	 */
 	void exitParam(JavaParser.ParamContext ctx);
 	/**
+	 * Enter a parse tree produced by {@link JavaParser#folloParam}.
+	 * @param ctx the parse tree
+	 */
+	void enterFolloParam(JavaParser.FolloParamContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link JavaParser#folloParam}.
+	 * @param ctx the parse tree
+	 */
+	void exitFolloParam(JavaParser.FolloParamContext ctx);
+	/**
 	 * Enter a parse tree produced by {@link JavaParser#primary}.
 	 * @param ctx the parse tree
 	 */

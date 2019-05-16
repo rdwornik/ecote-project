@@ -62,7 +62,12 @@ public class ConvertLambdaExpr {
             System.out.println("Error code is not compilable was not converted to new file");
             System.out.println(e.toString());
         }catch (ParseCancellationException e){
-            System.out.println("Error in syntax occurred file was not converted to new file");
+            StringBuilder str = new StringBuilder(args[0]);
+            int index = str.lastIndexOf(".");
+            str.replace(index,str.length(),".txt");
+            System.out.println(str.toString());
+            System.out.println("Error in syntax occurred error message is atached to new file");
+            writeToFile(e.getMessage(),str.toString());
             System.out.println(e.getMessage());
         }
 

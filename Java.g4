@@ -545,6 +545,7 @@ expression
         |   lambdaExpression
     ;
 
+
 lambdaExpression
     : lambdaParameters arrow lambdaBody
     ;
@@ -557,20 +558,21 @@ lambdaParameters
     : '(' parameters? ')'
     ;
 
-
 lambdaBody
     : block
     ;
 
 parameters
-    : param
-    | param parameters
+    : param (folloParam)*
     ;
 
 param
     : Identifier
-    | ',' Identifier
     ;
+folloParam
+    : ',' Identifier
+    ;
+
 
 primary
     :   '(' expression ')'

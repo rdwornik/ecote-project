@@ -30,7 +30,6 @@ public class ConvertLambdaExpListener extends JavaBaseListener {
 
 
         String field;
-
         //add initialization in place of '->'
         field = "new " + typeName + "()";
         rewriter.replace(ctx.arrow().start, field);
@@ -46,27 +45,25 @@ public class ConvertLambdaExpListener extends JavaBaseListener {
 
 
     @Override
-    public void exitLambdaExpression(JavaParser.LambdaExpressionContext ctx) {
-
+    public void enterLambdaBody(JavaParser.LambdaBodyContext ctx) {
+        //add anonymous method declaration
         String field;
-
-            //add anonymous method declaration
-            field = " public void " + variableName + "(" + parameters.toString() + ") {";
-            rewriter.insertAfter(ctx.lambdaBody().block().start,field);
-
-            parameters.setLength(0);
-
-
+        field = " public void " + variableName + "(" + parameters.toString() + ") {";
+        rewriter.insertAfter(ctx.start,field);
+        parameters.setLength(0);
     }
 
     @Override
     public void enterParam(JavaParser.ParamContext ctx) {
+        parameters.append(" Object " + ctx.stop.getText());
+        rewriter.delete(ctx.start);
+        rewriter.delete(ctx.stop);
 
-        if(ctx.stop.getText().equals(ctx.start.getText()))
-            parameters.append(" Object " + ctx.stop.getText());
-        else
-            parameters.append(ctx.start.getText() + " Object " + ctx.stop.getText());
+    }
 
+    @Override
+    public void enterFolloParam(JavaParser.FolloParamContext ctx) {
+        parameters.append(ctx.start.getText() + " Object " + ctx.stop.getText());
         rewriter.delete(ctx.start);
         rewriter.delete(ctx.stop);
     }
